@@ -2,6 +2,7 @@ import Banner from "./Banner";
 import Card from "./Card";
 import Featured from "./Featured";
 import PopularMenu from "./PopularMenu";
+import Testimonial from "./Testimonial";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Card></Card>
       <PopularMenu></PopularMenu>
       <Featured></Featured>
+      <Testimonial></Testimonial>
     </div>
   );
 };
