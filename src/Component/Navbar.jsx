@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navOptions = (
-    <div className="flex">
+    <div className="flex text-black">
       <li>
         <Link to={"/"}>Home</Link>
       </li>
