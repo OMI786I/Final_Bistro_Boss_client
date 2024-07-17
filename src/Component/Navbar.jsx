@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navOptions = (
-    <div className="flex text-black">
+    <div className=" md:text-white text-black md:flex">
       <li>
         <Link to={"/"}>Home</Link>
       </li>
       <li>
         <Link to={"/menu"}>Our Menu</Link>
+      </li>
+      <li>
+        <Link to={"/order"}>Order Food</Link>
       </li>
     </div>
   );
