@@ -103,7 +103,10 @@ const Login = () => {
           </form>
           <p>
             <small>
-              New Here? <Link to={"/register"}>Create an account</Link>
+              New Here?{" "}
+              <Link to={"/register"} className="underline text-blue-600">
+                Create an account
+              </Link>
             </small>
           </p>
         </div>
