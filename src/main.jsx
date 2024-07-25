@@ -11,6 +11,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Order from "./Page/Order/Order";
 import Login from "./Page/Login/Login";
 import AuthProvider from "./Providers/AuthProvider";
+import Signup from "./Page/Register/Signup";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Signup></Signup>,
       },
       {
         path: "/order/:category",

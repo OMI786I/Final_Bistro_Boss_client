@@ -1,23 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef(null);
+  const { signIn } = useContext(AuthContext);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-
+  console.log(import.meta.env.VITE_apiKey);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
 
   const handleValidateCapthca = () => {
@@ -31,17 +38,14 @@ const Login = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="hero bg-base-200 min-h-screen bg-[url('/public/image_assets/others/authentication.png')] ">
+      <div className="hero-content flex-col lg:flex-row">
         <div className="text-center lg:text-left md:w-1/2">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
+          <img src="/public/image_assets/others/authentication2.png"></img>
         </div>
+
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl md:w-1/2">
+          <h1 className="font-bold text-3xl text-center">Login</h1>
           <form className="card-body" onSubmit={handleLogin}>
             <div className="form-control">
               <label className="label">
@@ -97,6 +101,11 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <p>
+            <small>
+              New Here? <Link to={"/register"}>Create an account</Link>
+            </small>
+          </p>
         </div>
       </div>
     </div>
