@@ -5,10 +5,12 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
 
   const { signIn } = useContext(AuthContext);
@@ -24,6 +26,7 @@ const Login = () => {
     console.log(email, password);
     signIn(email, password).then((result) => {
       const user = result.user;
+      navigate(location?.state ? location.state : "/");
       console.log(user);
       Swal.fire({
         title: "Successfully logged In!",
