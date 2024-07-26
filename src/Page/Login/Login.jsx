@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -6,15 +6,16 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const captchaRef = useRef(null);
+
   const { signIn } = useContext(AuthContext);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-  console.log(import.meta.env.VITE_apiKey);
+
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -24,11 +25,16 @@ const Login = () => {
     signIn(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        title: "Successfully logged In!",
+        text: "You clicked the button!",
+        icon: "success",
+      });
     });
   };
 
-  const handleValidateCapthca = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleValidateCapthca = (e) => {
+    const user_captcha_value = e.target.value;
     console.log(user_captcha_value);
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
@@ -81,19 +87,13 @@ const Login = () => {
                 <LoadCanvasTemplate></LoadCanvasTemplate>
               </label>
               <input
-                type="captcha"
+                onBlur={handleValidateCapthca}
+                type="text"
                 placeholder="type the text above"
                 className="input input-bordered"
-                name="password"
-                ref={captchaRef}
+                name="captcha"
                 required
               />
-              <button
-                onClick={handleValidateCapthca}
-                className="btn btn-outline btn-xs mt-2"
-              >
-                Validate
-              </button>
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary" disabled={disabled}>
