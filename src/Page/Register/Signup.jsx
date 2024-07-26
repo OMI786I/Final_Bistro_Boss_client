@@ -1,15 +1,25 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Signup = () => {
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const { createUser } = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    });
+  };
   return (
     <div>
       {" "}
@@ -56,16 +66,43 @@ const Signup = () => {
                 </label>
                 <input
                   type="password"
-                  {...register("password")}
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    maxLength: 20,
+                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                  })}
                   placeholder="password"
                   className="input input-bordered"
                   name="password"
-                  required
                 />
+                {errors.password?.type === "required" && (
+                  <p className="text-red-600">Password is required</p>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <p className="text-red-600">
+                    Password must be of 6 characters
+                  </p>
+                )}
+                {errors.password?.type === "maxLength" && (
+                  <p className="text-red-600">
+                    Password must be less than 20 characters
+                  </p>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <p className="text-red-600">
+                    Password must have one upper case , one lower case , one
+                    number and one special character
+                  </p>
+                )}
               </div>
 
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Signup</button>
+                <input
+                  className="btn btn-primary"
+                  type="submit"
+                  value="Sign Up"
+                ></input>
               </div>
             </form>
             <p>

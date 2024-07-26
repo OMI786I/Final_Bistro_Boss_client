@@ -6,6 +6,7 @@ import PopularMenu from "./PopularMenu";
 import Testimonial from "./Testimonial";
 
 const Home = () => {
+  console.log(import.meta.env.VITE_API_KEY);
   return (
     <div>
       <Helmet>
