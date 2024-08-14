@@ -1,24 +1,40 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useContext(AuthContext);
-
+  const { createUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log(data);
-    createUser(data.email, data.password).then((result) => {
-      const loggedUser = result.user;
-      console.log(loggedUser);
-    });
+    createUser(data.email, data.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        updateUser(data.name, data.photoURL)
+          .then(() => {
+            console.log("user profile updated");
+            reset();
+            Swal.fire({
+              title: "Successfully registered!",
+              text: "You clicked the button!",
+              icon: "success",
+            });
+          })
+          .catch((error) => console.log(error));
+        navigate("/");
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <div>
@@ -96,7 +112,22 @@ const Signup = () => {
                   </p>
                 )}
               </div>
-
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("photoURL", { required: true })}
+                  placeholder="photo url"
+                  className="input input-bordered"
+                />
+                {errors.photoURL && (
+                  <span className="text-red-600">
+                    photo url is required is required
+                  </span>
+                )}
+              </div>
               <div className="form-control mt-6">
                 <input
                   className="btn btn-primary"
