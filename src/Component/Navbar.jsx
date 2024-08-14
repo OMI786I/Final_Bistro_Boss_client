@@ -2,8 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { IoIosCart } from "react-icons/io";
+import useCart from "../Hook/useCart";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
+  const length = cart.length;
+  console.log(length);
 
   const handleLogOut = () => {
     logOut()
@@ -26,7 +30,7 @@ const Navbar = () => {
         <Link to="/">
           <button className="btn btn-ghost">
             <IoIosCart />
-            <div className="badge badge-secondary">+0</div>
+            <div className="badge badge-secondary">+{length}</div>
           </button>
         </Link>
       </li>
