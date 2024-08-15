@@ -27,7 +27,7 @@ const Navbar = () => {
         <Link to={"/order/salad"}>Order Food</Link>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           <button className="btn btn-ghost">
             <IoIosCart />
             <div className="badge badge-secondary">+{length}</div>
