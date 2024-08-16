@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaCalendar, FaShoppingCart } from "react-icons/fa";
+import { FaCalendar, FaSearch, FaShoppingCart } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { MdOutlineReviews } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
@@ -37,6 +37,19 @@ const Dashboard = () => {
             <NavLink to={"/dashboard/bookings"}>
               <TbBrandBooking />
               My bookings
+            </NavLink>
+          </li>
+          <div className="divider"></div>
+          <li>
+            <NavLink to={"/"}>
+              <FaHome />
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/"}>
+              <FaSearch />
+              Menu
             </NavLink>
           </li>
         </ul>
