@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
+import SocialLogin from "../../Component/SocialLogin";
 
 const Signup = () => {
   const axiosPublic = useAxiosPublic();
@@ -155,6 +156,9 @@ const Signup = () => {
                 </Link>
               </small>
             </p>
+            <div>
+              <SocialLogin></SocialLogin>
+            </div>
           </div>
         </div>
       </div>
