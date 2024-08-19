@@ -12,10 +12,11 @@ import { FaHome } from "react-icons/fa";
 import { MdOutlineReviews } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import useCart from "../Hook/useCart";
+import useAdmin from "../Hook/useAdmin";
 const Dashboard = () => {
   const [cart] = useCart();
   //TODO: get isAdmin value from the database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
   return (
     <div className="flex">
       {/*dash boardside bar */}
