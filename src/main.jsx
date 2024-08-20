@@ -24,6 +24,7 @@ import Cart from "./Dashboard/cart/Cart";
 import AllUsers from "./Dashboard/AllUsers/AllUsers";
 import AddItems from "./Dashboard/AddItems/AddItems";
 import AdminRoute from "./Component/Routes/AdminRoute";
+import ManageItems from "./Dashboard/ManageItems/ManageItems";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageItems",
+        element: (
+          <AdminRoute>
+            <ManageItems></ManageItems>
           </AdminRoute>
         ),
       },
