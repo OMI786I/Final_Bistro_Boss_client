@@ -1,10 +1,35 @@
+import Swal from "sweetalert2";
 import SectionTitle from "../../Component/SectionTitle";
 import useMenu from "../../Hook/useMenu";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
-  const handleDeleteItem = (item) => {
-    // todo
+  const [menu, loading, refetch] = useMenu();
+  const axiosSecure = useAxiosSecure();
+  const handleDeleteItem = async (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/menu/${item._id}`);
+        console.log(res.data);
+
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: `${item.name} has been deleted.`,
+            icon: "success",
+          });
+        }
+      }
+    });
   };
   return (
     <div>
@@ -47,7 +72,12 @@ const ManageItems = () => {
                   <button className="btn btn-ghost btn-xs">update</button>
                 </td>
                 <td>
-                  <button className="btn btn-error btn-xs">delete</button>
+                  <button
+                    className="btn btn-error btn-xs"
+                    onClick={() => handleDeleteItem(item)}
+                  >
+                    delete
+                  </button>
                 </td>
               </tr>
             ))}
