@@ -25,6 +25,7 @@ import AllUsers from "./Dashboard/AllUsers/AllUsers";
 import AddItems from "./Dashboard/AddItems/AddItems";
 import AdminRoute from "./Component/Routes/AdminRoute";
 import ManageItems from "./Dashboard/ManageItems/ManageItems";
+import UpdateItem from "./Dashboard/UpdateItem/UpdateItem";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -97,6 +98,16 @@ const router = createBrowserRouter([
             <ManageItems></ManageItems>
           </AdminRoute>
         ),
+      },
+      {
+        path: "updateItem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem></UpdateItem>
+          </AdminRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
     ],
   },
